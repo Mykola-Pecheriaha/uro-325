@@ -1,13 +1,3 @@
-/* Змінні для висот компонентів */
-:root {
-  --contacts-bar-height: 40px;
-  --header-height: 80px;
-  --breadcrumb-height: 40px;
-  --total-fixed-height: calc(
-    var(--contacts-bar-height) + var(--header-height) + var(--breadcrumb-height)
-  );
-}
-
 .body {
   margin: 0;
   padding: 0;
@@ -30,18 +20,4 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
-}
-
-/* Медіа-запит для адаптивності */
-@media (max-width: 768px) {
-  :root {
-    --contacts-bar-height: 30px;
-    --header-height: 60px;
-    --breadcrumb-height: 30px;
-    /* total-fixed-height оновиться автоматично */
-  }
-
-  .mainContent {
-    padding: 0.5rem;
-  }
 }
