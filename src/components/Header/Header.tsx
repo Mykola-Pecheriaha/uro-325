@@ -1,9 +1,11 @@
 'use client';
 
 import type React from 'react';
-import { useState } from 'react';
+
+import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import styles from './Header.module.css';
 import ConsultationButton from '../ConsultationButton/ConsultationButton';
 
@@ -24,6 +26,8 @@ const menuItems: MenuItem[] = [
       { title: 'УЗД', href: '/diagnostics/usd' },
       { title: 'Тести', href: '/diagnostics/tests' },
       { title: 'Біопсія', href: '/diagnostics/biopsy' },
+      { title: 'Уретероскопія', href: '/diagnostics/ureteroscopy' },
+      { title: 'Цистоскопія', href: '/diagnostics/cystoscopy' },
     ],
   },
   {
@@ -50,20 +54,80 @@ const menuItems: MenuItem[] = [
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
+  const pathname = usePathname();
 
-  const toggleMobileMenu = () => {
+  const toggleMobileMenu = useCallback(() => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
     setActiveSubmenu(null);
-  };
+  }, [isMobileMenuOpen]);
 
-  const toggleSubmenu = (title: string) => {
-    setActiveSubmenu(activeSubmenu === title ? null : title);
-  };
+  const toggleSubmenu = useCallback(
+    (title: string) => {
+      setActiveSubmenu(activeSubmenu === title ? null : title);
+    },
+    [activeSubmenu]
+  );
+
+  const handleLinkClick = useCallback(() => {
+    setIsMobileMenuOpen(false);
+    setActiveSubmenu(null);
+  }, []);
+
+  const isActive = useCallback(
+    (href: string) => {
+      return pathname === href || pathname.startsWith(`${href}/`);
+    },
+    [pathname]
+  );
+
+  const renderMenuItem = (item: MenuItem) => (
+    <li
+      key={item.title}
+      className={`${styles.menuItem} ${activeSubmenu === item.title ? styles.active : ''} ${
+        isActive(item.href) ? styles.activeLink : ''
+      }`}
+    >
+      {item.submenu ? (
+        <>
+          <button
+            className={`${styles.menuButton} ${isActive(item.href) ? styles.activeLink : ''}`}
+            onClick={() => toggleSubmenu(item.title)}
+          >
+            {item.title}
+            <span className={styles.arrow}>▼</span>
+          </button>
+          <ul
+            className={`${styles.submenu} ${activeSubmenu === item.title ? styles.active : ''}`}
+          >
+            {item.submenu.map((subItem) => (
+              <li key={subItem.title}>
+                <Link
+                  href={subItem.href}
+                  className={isActive(subItem.href) ? styles.activeLink : ''}
+                  onClick={handleLinkClick}
+                >
+                  {subItem.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <Link
+          href={item.href}
+          className={`${styles.menuLink} ${isActive(item.href) ? styles.activeLink : ''}`}
+          onClick={handleLinkClick}
+        >
+          {item.title}
+        </Link>
+      )}
+    </li>
+  );
 
   return (
     <header className={styles.headerWrapper}>
       <div className={styles.headerContainer}>
-        <div className={styles.logo}>
+        <Link href="/" className={styles.logo} onClick={handleLinkClick}>
           <Image
             src="/images/logo/logo1-removebg-preview.png"
             alt="Логотип"
@@ -72,7 +136,7 @@ const Header: React.FC = () => {
             priority
           />
           <span className={styles.logoText}>ЦМКЛ</span>
-        </div>
+        </Link>
 
         <button
           className={styles.mobileMenuButton}
@@ -85,39 +149,7 @@ const Header: React.FC = () => {
         <nav
           className={`${styles.nav} ${isMobileMenuOpen ? styles.active : ''}`}
         >
-          <ul className={styles.menuList}>
-            {menuItems.map((item) => (
-              <li
-                key={item.title}
-                className={`${styles.menuItem} ${activeSubmenu === item.title ? styles.active : ''}`}
-              >
-                {item.submenu ? (
-                  <>
-                    <button
-                      className={styles.menuButton}
-                      onClick={() => toggleSubmenu(item.title)}
-                    >
-                      {item.title}
-                      <span className={styles.arrow}>▼</span>
-                    </button>
-                    <ul
-                      className={`${styles.submenu} ${activeSubmenu === item.title ? styles.active : ''}`}
-                    >
-                      {item.submenu.map((subItem) => (
-                        <li key={subItem.title}>
-                          <Link href={subItem.href}>{subItem.title}</Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                ) : (
-                  <Link href={item.href} className={styles.menuLink}>
-                    {item.title}
-                  </Link>
-                )}
-              </li>
-            ))}
-          </ul>
+          <ul className={styles.menuList}>{menuItems.map(renderMenuItem)}</ul>
         </nav>
 
         <div className={styles.consultationButton}>

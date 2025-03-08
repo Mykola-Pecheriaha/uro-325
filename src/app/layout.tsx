@@ -4,6 +4,7 @@ import { Geist, Azeret_Mono as Geist_Mono } from 'next/font/google';
 import ContactsBar from '../components/ContactsBar/ContactsBar';
 import Header from '../components/Header/Header';
 import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
+import Footer from '../components/Footer/Footer';
 import './globals.css';
 import styles from './layout.module.css';
 
@@ -31,12 +32,12 @@ export const metadata: Metadata = {
     url: 'https://p-plastik-125.com',
     siteName: 'P-plastik-125',
     images: [
-      {
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'P-plastik-125 - Пластична хірургія',
-      },
+      // {
+      //   url: '/og-image.jpg',
+      //   width: 1200,
+      //   height: 630,
+      //   alt: 'P-plastik-125 - Пластична хірургія',
+      // },
     ],
   },
 };
@@ -55,6 +56,7 @@ export default function RootLayout({
           <Breadcrumb />
         </div>
         <main className={styles.mainContent}>{children}</main>
+        <Footer />
       </body>
     </html>
   );

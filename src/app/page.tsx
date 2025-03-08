@@ -1,15 +1,12 @@
-import type { Metadata } from 'next';
+import type React from 'react';
+import BigBoard from '../components/BigBord/BigBord';
 
-export const metadata: Metadata = {
-  title: 'Uro-325 | Головна',
-  description: 'Професійні послуги з урології.',
+const Home: React.FC = () => {
+  return (
+    <div>
+      <BigBoard backgroundColor="#88F3EAFF" />
+    </div>
+  );
 };
 
-export default function Home() {
-  return (
-    <main>
-      <h1>Ласкаво просимо до Uro-325</h1>
-      <p>Професійні послуги уролога.</p>
-    </main>
-  );
-}
+export default Home;

@@ -6,10 +6,10 @@
   margin: 0;
 }
 
-body {
+/* body {
   color: var(--text-color);
   background-color: var(--background-color);
-}
+} */
 
 a {
   color: inherit;
@@ -37,22 +37,13 @@ body {
 }
 
 /* Змінні для кольорів та інших глобальних значень */
-:root {
-  --background-color: #ffffff;
-  --text-color: #333333;
-  --border-color: #eaeaea;
-}
 
 body {
   background-color: var(--background-color);
   color: var(--text-color);
 }
 
-/* Базові стилі для темної теми */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-color: #1a1a1a;
-    --text-color: #ffffff;
-    --border-color: #333333;
-  }
+:root {
+  --fixed-top-height: 150px; /* Онови цю висоту, якщо потрібно */
+  --background-color: #fff;
 }

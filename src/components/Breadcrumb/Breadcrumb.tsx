@@ -22,6 +22,8 @@ const routeNameMap: { [key: string]: string } = {
   biopsy: 'Біопсія',
   conservative: 'Консервативне лікування',
   operative: 'Оперативне лікування',
+  ureteroscopy: 'Уретероскопія',
+  cystoscopy: 'cystoscopy',
 };
 
 const Breadcrumb: React.FC = () => {
