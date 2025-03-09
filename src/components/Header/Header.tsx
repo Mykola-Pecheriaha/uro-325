@@ -26,8 +26,8 @@ const menuItems: MenuItem[] = [
       { title: 'УЗД', href: '/diagnostics/usd' },
       { title: 'Тести', href: '/diagnostics/tests' },
       { title: 'Біопсія', href: '/diagnostics/biopsy' },
-      { title: 'Уретероскопія', href: '/diagnostics/ureteroscopy' },
-      { title: 'Цистоскопія', href: '/diagnostics/cystoscopy' },
+      { title: 'Уретероцистоскопія', href: '/diagnostics/ureteroscopy' },
+      // { title: 'Цистоскопія', href: '/diagnostics/cystoscopy' },
     ],
   },
   {

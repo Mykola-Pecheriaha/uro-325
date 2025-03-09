@@ -1,7 +1,5 @@
-import React from 'react';
+import Urethrocystoscopy from '../../../components/Urethrocystoscopy/Urethrocystoscopy';
 
-const UreteroscopyPage: React.FC = () => {
-  return <div>UreteroscopyPage - сторінка в розробці</div>;
-};
-
-export default UreteroscopyPage;
+export default function Page() {
+  return <Urethrocystoscopy backgroundColor="#89F5ECFF" />;
+}
